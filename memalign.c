@@ -9,7 +9,7 @@ void * memalign(size_t blocksize, size_t bytes)
 	// as well as an extra blocksize to find an aligned address in
 	size_t allocate_size = sizeof(intptr_t) + blocksize + bytes;
 
-	void *data = malloc(allocate_size);
+	char *data = malloc(allocate_size);
 
 	// store original malloc address at the start of the data
 	intptr_t data_start = (intptr_t) data;
@@ -22,10 +22,10 @@ void * memalign(size_t blocksize, size_t bytes)
 		offset_size += 1;
 	}
 
-	void *aligned_start = data += offset_size;
+	char *aligned_start = data += offset_size;
 
 	// store original malloc address in the area of size_t before the aligned address
-	void *before_aligned = aligned_start - sizeof(intptr_t);
+	char *before_aligned = aligned_start - sizeof(intptr_t);
 	*(intptr_t *) before_aligned = data_start;
 
 	return aligned_start;
@@ -36,7 +36,7 @@ void memalign_free(void *data)
 {
 	// we assume this memory was allocated with memalign, otherwise LOL WHOOPS
 	// grab the original malloc'd address in the size_t before the aligned address
-	void *original_malloc_start = data - sizeof(intptr_t);
+	char *original_malloc_start = data - sizeof(intptr_t);
 	intptr_t malloc_address = * (intptr_t *) original_malloc_start;
 
 	free((void *) malloc_address);
