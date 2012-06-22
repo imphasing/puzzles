@@ -25,38 +25,36 @@ struct vertex *add_vertex(struct graph *graph, int value)
 	return *last;
 }
 
-void add_edge(struct vertex *vertexA, struct vertex *vertexB)
+void add_edge(struct vertex *vertex1, struct vertex *vertex2)
 {
-	struct edge **last = &vertexA->edges;
+	struct edge **last = &vertex1->edges;
 	while (*last != NULL)
 		last = &(*last)->next;
 	
 	*last = malloc(sizeof(struct edge));
-	(*last)->connectsTo = vertexB;
+	(*last)->connects_to = vertex2;
 	(*last)->next = NULL;
 }
 
 void print_graph(struct graph *graph)
 {
-	struct vertex *lastVertex = graph->vertices;
+	struct vertex *last_vertex = graph->vertices;
 	
-	while (lastVertex != NULL)
-	{
-		printf("Vertex: %d connects to: ", lastVertex->element);
+	while (last_vertex != NULL) {
+		printf("Vertex: %d connects to: ", last_vertex->element);
 
-		struct edge *lastEdge = lastVertex->edges;
+		struct edge *last_edge = last_vertex->edges;
 
-		while (lastEdge != NULL)
-		{
-			if (lastEdge->connectsTo != NULL)
-				printf("%d, ", lastEdge->connectsTo->element);
+		while (last_edge != NULL) {
+			if (last_edge->connects_to != NULL)
+				printf("%d, ", last_edge->connects_to->element);
 
-			lastEdge = lastEdge->next;
+			last_edge = last_edge->next;
 		}
 
-		puts("\n");
+		printf("\n");
 
-		lastVertex = lastVertex->next;
+		last_vertex = last_vertex->next;
 	}
 }
 

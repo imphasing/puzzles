@@ -11,12 +11,12 @@ struct vertex {
 
 
 struct edge {
-	struct vertex *connectsTo;
+	struct vertex *connects_to;
 	struct edge *next;
 };
 
 
 struct graph *create_graph();
 struct vertex *add_vertex(struct graph *graph, int value);
-void add_edge(struct vertex *vertexA, struct vertex *vertexB);
+void add_edge(struct vertex *vertex1, struct vertex *vertex2);
 void print_graph(struct graph *graph);

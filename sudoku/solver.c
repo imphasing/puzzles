@@ -59,5 +59,5 @@ struct graph *load_initial()
 
 int main(int argc, char **argv)
 {
-	load_initial(9);
+	print_graph(load_initial(9));
 }
